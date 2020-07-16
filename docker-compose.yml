@@ -19,16 +19,8 @@ services:
       - "./app:/app"
     container_name: golang_app
     ports:
-      - "80:8080"
+      - "8080:8080"
     tty: true
     depends_on:
       - db
-  app2:
-    build:
-      context: ./app2
-    volumes:
-      - "./app2:/app2"
-    container_name: golang_app2
-    ports:
-      - "81:8081"
-    tty: true
+  
