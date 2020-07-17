@@ -19,10 +19,13 @@ func main() {
 
 	db, err = gorm.Open("mysql", "docker:docker@tcp(db:3306)/test_db?parseTime=true")
 	if err != nil {
-		http.HandleFunc("/", handlerErr)
+		//http.HandleFunc("/", handlerErr)
+		//http.ListenAndServe(":8080", nil)
 		panic("failed to connect database")
 	}
+
 	createTable()
+
 	r := gin.Default()
 	users := r.Group("/users")
 	{
@@ -51,9 +54,9 @@ type User struct {
 func createTable() {
 	db.Exec("TRUNCATE TABLE users;")
 	db.AutoMigrate(&User{})
-	db.Create(&User{Name: "phule", Age: 25})
-	db.Create(&User{Name: "dungdt", Age: 28})
-	db.Create(&User{Name: "tuantt", Age: 25})
+
+	db.Create(&User{Name: "DungDT", Age: 28})
+
 }
 
 func getUser(c *gin.Context) {
