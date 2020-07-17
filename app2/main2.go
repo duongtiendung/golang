@@ -1,15 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
 	"encoding/json"
+	"fmt"
 	"html/template"
+	"net/http"
 )
 
-type User struct  {
-	Id int 		 `json:"id"`
-	Name string	 `json:"name"`
+type User struct {
+	Id    int    `json:"id"`
+	Name  string `json:"name"`
 	Email string `json:"email"`
 	Phone string `json:"phone"`
 }
@@ -22,17 +22,17 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World!")
-} 
+	fmt.Fprintf(w, "Hello World! 222")
+}
 
 //jsonHandler returns http respone in JSON format.
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	user := User{Id: 1, 
-				Name: "John Doe", 
-				Email: "johndoe@gmail.com", 
-				Phone: "000099999"}
-	json.NewEncoder(w).Encode(user)	
+	user := User{Id: 1,
+		Name:  "John Doe",
+		Email: "johndoe@gmail.com",
+		Phone: "000099999"}
+	json.NewEncoder(w).Encode(user)
 }
 
 //templateHandler renders a template and returns as http response.
@@ -43,9 +43,9 @@ func templateHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Unable to load template")
 	}
 
-	user := User{Id: 1, 
-		Name: "John Doe", 
-		Email: "johndoe@gmail.com", 
+	user := User{Id: 1,
+		Name:  "John Doe",
+		Email: "johndoe@gmail.com",
 		Phone: "000099999"}
 	t.Execute(w, user)
 }
