@@ -30,9 +30,11 @@ func main() {
 	users := r.Group("/users")
 	{
 		users.GET("/:id", getUser)
+		users.POST("/create")
 		users.POST("/edit", func(c *gin.Context) {
 			c.JSON(200, gin.H{"name": "user.Name", "age": "user.Age"})
 		})
+
 	}
 	r.Run()
 }
