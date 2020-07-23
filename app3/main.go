@@ -1,42 +1,43 @@
 package main
 
 import (
-  "log"
-  "net/http"
+	"log"
+	"net/http"
 )
 
 func middlewareOne(next http.Handler) http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    log.Println("Executing middlewareOne")
-    next.ServeHTTP(w, r)
-    log.Println("Executing middlewareOne again")
-  })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Thu middlewareOne")
+		next.ServeHTTP(w, r)
+		log.Println("Executing middlewareOne again")
+	})
 }
 
 func middlewareTwo(next http.Handler) http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    log.Println("Executing middlewareTwo")
-    if r.URL.Path == "/foo" {
-      return
-    }
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Executing middlewareTwo")
+		if r.URL.Path == "/foo" {
+			w.Write([]byte("foo"))
+			return
+		}
 
-    next.ServeHTTP(w, r)
-    log.Println("Executing middlewareTwo again")
-  })
+		next.ServeHTTP(w, r)
+		log.Println("Executing middlewareTwo again")
+	})
 }
 
 func final(w http.ResponseWriter, r *http.Request) {
-  log.Println("Executing finalHandler")
-  w.Write([]byte("OK"))
+	log.Println("Executing finalHandler")
+	w.Write([]byte("OK"))
 }
 
 func main() {
-  mux := http.NewServeMux()
+	mux := http.NewServeMux()
 
-  finalHandler := http.HandlerFunc(final)
-  mux.Handle("/", middlewareOne(middlewareTwo(finalHandler)))
+	finalHandler := http.HandlerFunc(final)
+	mux.Handle("/", middlewareOne(middlewareTwo(finalHandler)))
 
-  log.Println("Listening on :3000...")
-  err := http.ListenAndServe(":3000", mux)
-  log.Fatal(err)
-}  
+	log.Println("Listening on :3000...")
+	err := http.ListenAndServe(":3000", mux)
+	log.Fatal(err)
+}
