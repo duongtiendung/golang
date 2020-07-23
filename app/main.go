@@ -40,7 +40,7 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Kết nối CDSL thành công ")
+	fmt.Fprintf(w, "Kết nối CDSL thành công")
 }
 
 func handlerErr(w http.ResponseWriter, r *http.Request) {

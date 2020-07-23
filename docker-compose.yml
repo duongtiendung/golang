@@ -32,4 +32,13 @@ services:
     ports:
       - "8082:8081"
     tty: true
+  app3:
+    build:
+      context: ./app3
+    volumes:
+      - "./app3:/app3"
+    container_name: golang_app3
+    ports:
+      - "8083:3000"
+    tty: true
   
