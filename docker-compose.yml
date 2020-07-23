@@ -41,4 +41,13 @@ services:
     ports:
       - "8083:3000"
     tty: true
+  web:
+    build:
+      context: ./web
+    volumes:
+      - "./web:/web"
+    container_name: web
+    ports:
+      - "8084:8080"
+    tty: true
   
