@@ -50,4 +50,13 @@ services:
     ports:
       - "8084:8080"
     tty: true
+  gotest:
+    build:
+      context: ./gotest
+    volumes:
+      - "./gotest:/gotest"
+    container_name: gotest
+    ports:
+      - "8085:8080"
+    tty: true
   
